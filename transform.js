@@ -26,3 +26,13 @@ function multi(m1, m2){
 
     return hasil;
 }
+
+function createTranslation(Tx, Ty){
+    var translasi = [
+        [1,0,Tx],
+        [0,1,Ty],
+        [0,0,1]
+    ]
+
+    return translasi;
+}
