@@ -3,9 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tugas Besar Grafika Komputer</title>
+    <script src="lib.js"></script>
+    <script src="transform.js"></script>
+    <style>
+        canvas{
+            border: 2px solid black;
+            cursor: crosshair;
+            background-color: #0d1a26;
+        }
+        #controls{
+            margin-top: 10px;
+        }
+        .point-marker{
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: red;
+            cursor: pointer;
+            z-index: 10;
+        }
+        #p1-marker{
+            background-color: cyan;
+        }
+        #p2-marker{
+            background-color: magenta;
+        }
+    </style>
 </head>
 <body>
-    
+    <div id="visualiAtion-container" style="position: relative; width: 400px; height: 400px;">
+        <canvas id="myCanvas" height="400" width="400"></canvas>
+        <div id="p1-marker" class="point-marker" style="left: 100px; top: 100px;"></div>
+        <div id="p2-marker" class="point-marker" style="left: 300px; top: 300px;"></div>
+        <div id="controls">
+            <button id="visualize-button"></button>
+            <div id="status"></div>
+        </div>
+    </div>
 </body>
 </html>
