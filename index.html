@@ -2,45 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tugas Besar Grafika Komputer</title>
-    <script src="lib.js"></script>
-    <script src="transform.js"></script>
+    <title>Tugas Besar GrafKom</title>
+    <script src="grafika_lib.js"></script> 
     <style>
-        canvas{
+        canvas {
             border: 2px solid black;
             cursor: crosshair;
-            background-color: #0d1a26;
+            background-color: #c2ddf6b4;
         }
-        #controls{
+        #controls {
             margin-top: 10px;
-        }
-        .point-marker{
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: red;
-            cursor: pointer;
-            z-index: 10;
-        }
-        #p1-marker{
-            background-color: cyan;
-        }
-        #p2-marker{
-            background-color: magenta;
         }
     </style>
 </head>
 <body>
-    <div id="visualiAtion-container" style="position: relative; width: 400px; height: 400px;">
-        <canvas id="myCanvas" height="400" width="400"></canvas>
-        <div id="p1-marker" class="point-marker" style="left: 100px; top: 100px;"></div>
-        <div id="p2-marker" class="point-marker" style="left: 300px; top: 300px;"></div>
-        <div id="controls">
-            <button id="visualize-button"></button>
-            <div id="status"></div>
-        </div>
+    <h1>Visualisasi Stack</h1>
+    <div id="visualization-container" style="position: relative; width: 1000px; height: 400px;">
+        <canvas id="canvas1" height="400" width="1000"></canvas>
     </div>
+    
+    <div id="controls">
+        <label for="inputN">Masukkan Jumlah Lingkaran (N, max 10):</label>
+        <input type="number" id="inputN" value="5" min="1" max="10">
+        <button onclick="prosesInput()">Gambar Lingkaran</button>
+        <p id="outputN"></p>
+    </div>
+    
+    <script>
+    var canvasKita = document.querySelector("#canvas1");
+    var ctx = canvasKita.getContext("2d");
+
+    const YC = 200;
+    const RADIUS = 30;
+    const BLACK = {r:0, g:0, b:0};
+    const RED = {r:255, g:0, b:0};
+    const SPACING = 100;
+
+    function prosesInput() {
+        const inputElement = document.getElementById('inputN');
+        
+        let N = parseInt(inputElement.value); 
+        
+        N = Math.min(10, N); 
+        if (isNaN(N) || N < 1) {
+            N = 1; 
+        }
+        inputElement.value = N; 
+
+        document.getElementById('outputN').innerText = "Menggambar ${N} stack dengan nilai acak (1-99).";
+
+        ctx.clearRect(0, 0, canvasKita.width, canvasKita.height);
+        let imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
+
+
+        const START_XC = 50; 
+        
+        for (let i = 0; i < N; i++) {
+            let new_xc = START_XC + (i * SPACING); 
+            
+            lingkaran_polar(imageDataSaya, new_xc, YC, RADIUS, BLACK);
+            
+            const randomNumber = Math.floor(Math.random() * 98) + 1;
+            
+            if (i < N - 1) {
+                let arrow_start_x = new_xc + RADIUS + 5;
+                arrow(imageDataSaya, arrow_start_x - 35, YC, RED);
+            }
+            
+            if (ctx.fillText) { 
+                ctx.putImageData(imageDataSaya, 0, 0); 
+                
+                ctx.font = '20px Arial'; 
+                ctx.fillStyle = 'blue';
+                ctx.textAlign = 'center';
+                
+                ctx.fillText(randomNumber.toString(), new_xc, YC + 7); 
+                
+                imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
+            }
+
+        }
+        
+        ctx.putImageData(imageDataSaya, 0, 0);
+    }
+
+    window.onload = prosesInput;
+</script>
+</script>
 </body>
 </html>
