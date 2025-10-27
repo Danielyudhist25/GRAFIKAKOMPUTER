@@ -27,6 +27,7 @@
         <label for="inputN">Masukkan Jumlah Lingkaran (N, max 10):</label>
         <input type="number" id="inputN" value="5" min="1" max="10">
         <button onclick="prosesInput()">Gambar Lingkaran</button>
+        <button onclick="sortStack()">Sort (Ascending)</button>
         <p id="outputN"></p>
     </div>
     
@@ -39,13 +40,17 @@
     const BLACK = {r:0, g:0, b:0};
     const RED = {r:255, g:0, b:0};
     const SPACING = 100;
+    const MAX_N = 10;
+    const START_XC = 50; 
+
+    let a = []; 
 
     function prosesInput() {
         const inputElement = document.getElementById('inputN');
         
         let N = parseInt(inputElement.value); 
         
-        N = Math.min(10, N); 
+        N = Math.min(MAX_N, N); 
         if (isNaN(N) || N < 1) {
             N = 1; 
         }
@@ -56,19 +61,20 @@
         ctx.clearRect(0, 0, canvasKita.width, canvasKita.height);
         let imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
 
+        a = Array.from({ length: MAX_N }, () => {
+            return Math.floor(Math.random() * 98) + 1; 
+        });
 
-        const START_XC = 50; 
+        console.log(a);
         
         for (let i = 0; i < N; i++) {
             let new_xc = START_XC + (i * SPACING); 
             
             lingkaran_polar(imageDataSaya, new_xc, YC, RADIUS, BLACK);
-            
-            const randomNumber = Math.floor(Math.random() * 98) + 1;
-            
+
             if (i < N - 1) {
-                let arrow_start_x = new_xc + RADIUS + 5;
-                arrow(imageDataSaya, arrow_start_x - 35, YC, RED);
+                let arrow_start_x = new_xc + RADIUS - 30;
+                arrow(imageDataSaya, arrow_start_x, YC, RED); 
             }
             
             if (ctx.fillText) { 
@@ -78,18 +84,71 @@
                 ctx.fillStyle = 'blue';
                 ctx.textAlign = 'center';
                 
-                ctx.fillText(randomNumber.toString(), new_xc, YC + 7); 
+                ctx.fillText(a[i].toString(), new_xc, YC + 7); 
                 
                 imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
             }
-
         }
         
         ctx.putImageData(imageDataSaya, 0, 0);
     }
 
+    function sortStack() {
+        const inputElement = document.getElementById('inputN');
+        
+        let N = parseInt(inputElement.value); 
+        
+        N = Math.min(MAX_N, N); 
+        if (isNaN(N) || N < 1) {
+            N = 1; 
+        }
+        inputElement.value = N; 
+        
+        if (a.length === 0) {
+            alert("Tekan tombol 'Gambar Lingkaran' terlebih dahulu untuk membuat data.");
+            return;
+        }
+
+        let elementsToSort = a.slice(0, N);
+        
+        elementsToSort.sort((val1, val2) => val1 - val2); 
+
+        for (let i = 0; i < N; i++) {
+            a[i] = elementsToSort[i];
+        }
+
+        document.getElementById('outputN').innerText = "Stack telah diurutkan (Ascending): " + a.slice(0, N).join(', ');
+
+        ctx.clearRect(0, 0, canvasKita.width, canvasKita.height);
+        let imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
+
+        for (let i = 0; i < N; i++) {
+            let new_xc = START_XC + (i * SPACING); 
+            
+            lingkaran_polar(imageDataSaya, new_xc, YC, RADIUS, BLACK);
+
+            if (i < N - 1) {
+                let arrow_start_x = new_xc + RADIUS - 30;
+                arrow(imageDataSaya, arrow_start_x, YC, RED);
+            }
+            
+            if (ctx.fillText) { 
+                ctx.putImageData(imageDataSaya, 0, 0); 
+                
+                ctx.font = '20px Arial'; 
+                ctx.fillStyle = 'blue';
+                ctx.textAlign = 'center';
+                
+                ctx.fillText(a[i].toString(), new_xc, YC + 7); 
+                
+                imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
+            }
+        }
+        
+        ctx.putImageData(imageDataSaya, 0, 0); 
+    }
+
     window.onload = prosesInput;
-</script>
-</script>
+    </script>
 </body>
 </html>
