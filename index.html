@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tugas Besar GrafKom</title>
-    <script src="grafika_lib.js"></script> 
+    <script src="lib.js"></script> 
     <style>
         canvas {
             border: 2px solid black;
@@ -51,7 +51,7 @@
         }
         inputElement.value = N; 
 
-        document.getElementById('outputN').innerText = "Menggambar ${N} stack dengan nilai acak (1-99).";
+        document.getElementById('outputN').innerText = "Menggambar " + N + " stack dengan nilai acak (1-99).";
 
         ctx.clearRect(0, 0, canvasKita.width, canvasKita.height);
         let imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
