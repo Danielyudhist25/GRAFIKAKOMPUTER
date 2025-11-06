@@ -23,8 +23,7 @@ function arrow(imageData, x, y, color) {
     }
     for(let i = 0; i<5; i++) {
         draw_dot(imageData, x+65-i, y-i, color);
-    }
-    for(let i = 0; i<5; i++) {
         draw_dot(imageData, x+65-i, y+i, color);
     }
 }
+
