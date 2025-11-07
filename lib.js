@@ -27,3 +27,24 @@ function arrow(imageData, x, y, color) {
     }
 }
 
+function draw_grass() {
+    const startY = canvasKita.height - GRASS_HEIGHT; 
+
+    ctx.fillStyle = GRASS_COLOR_DARK;
+    ctx.fillRect(0, startY, canvasKita.width, GRASS_HEIGHT);
+
+    for (let x = 0; x < canvasKita.width; x += GRASS_TRIANGLE_BASE / 2) { 
+        ctx.beginPath();
+        let randomHeight = GRASS_TRIANGLE_HEIGHT + (Math.random() * 10 - 5);
+        let currentGrassColor = (Math.floor(x / (GRASS_TRIANGLE_BASE * 2)) % 2 === 0) ? GRASS_COLOR_DARK : GRASS_COLOR_LIGHT;
+            
+        ctx.moveTo(x, startY); 
+        ctx.lineTo(x + GRASS_TRIANGLE_BASE / 2, startY - randomHeight); 
+        ctx.lineTo(x + GRASS_TRIANGLE_BASE, startY);
+        ctx.closePath();
+        ctx.fillStyle = currentGrassColor;
+        ctx.fill();
+        ctx.strokeStyle = currentGrassColor; 
+        ctx.stroke();
+    }
+}
