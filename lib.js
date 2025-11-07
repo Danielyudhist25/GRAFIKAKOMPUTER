@@ -48,3 +48,4 @@ function draw_grass(HEIGHT, TRIANGLE_BASE, TRIANGLE_HEIGHT, GRASS_COLOR1, GRASS_
         ctx.stroke();
     }
 }
+
