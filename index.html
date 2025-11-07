@@ -47,6 +47,12 @@
     const MAX_N = 10;
     const START_XC = 50; 
 
+    const GRASS_COLOR_DARK = '#228B22'; 
+    const GRASS_COLOR_LIGHT = '#32CD32';
+    const GRASS_HEIGHT = 20;
+    const GRASS_TRIANGLE_BASE = 20;
+    const GRASS_TRIANGLE_HEIGHT = 60;
+
     let a = []; 
 
     function prosesInput() {
@@ -63,6 +69,8 @@
         document.getElementById('outputN').innerText = "Menggambar " + N + " stack dengan nilai acak (1-99).";
 
         ctx.clearRect(0, 0, canvasKita.width, canvasKita.height);
+        draw_grass();
+
         let imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
 
         a = Array.from({ length: MAX_N }, () => {
@@ -70,10 +78,9 @@
         });
 
         console.log(a);
-        
         for (let i = 0; i < N; i++) {
             let new_xc = START_XC + (i * SPACING); 
-            
+
             lingkaran_polar(imageDataSaya, new_xc, YC, RADIUS, BLACK);
 
             if (i < N - 1) {
@@ -124,6 +131,7 @@
         document.getElementById('outputN').innerText = "Stack telah diurutkan (Ascending): " + a.slice(0, N).join(', ');
 
         ctx.clearRect(0, 0, canvasKita.width, canvasKita.height);
+        draw_grass();
         let imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
 
         for (let i = 0; i < N; i++) {
@@ -179,6 +187,7 @@
         document.getElementById('outputN').innerText = "Stack telah diurutkan (Descending): " + a.slice(0, N).join(', ');
 
         ctx.clearRect(0, 0, canvasKita.width, canvasKita.height);
+        draw_grass();
         let imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
 
         for (let i = 0; i < N; i++) {
