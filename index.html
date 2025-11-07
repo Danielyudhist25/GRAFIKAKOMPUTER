@@ -69,7 +69,7 @@
         document.getElementById('outputN').innerText = "Menggambar " + N + " stack dengan nilai acak (1-99).";
 
         ctx.clearRect(0, 0, canvasKita.width, canvasKita.height);
-        draw_grass();
+        draw_grass(GRASS_HEIGHT, GRASS_TRIANGLE_BASE, GRASS_TRIANGLE_HEIGHT, GRASS_COLOR_DARK, GRASS_COLOR_LIGHT);
 
         let imageDataSaya = ctx.getImageData(0, 0, canvasKita.width, canvasKita.height);
 
