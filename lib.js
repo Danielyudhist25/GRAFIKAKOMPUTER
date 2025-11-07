@@ -28,16 +28,16 @@ function arrow(imageData, x, y, color) {
 }
 
 function draw_grass(HEIGHT, TRIANGLE_BASE, TRIANGLE_HEIGHT, GRASS_COLOR1, GRASS_COLOR2) {
-    const startY = canvasKita.height - HEIGHT; 
+    const startY = canvasKita.height - HEIGHT;
 
     ctx.fillStyle = GRASS_COLOR1;
     ctx.fillRect(0, startY, canvasKita.width, HEIGHT);
 
-    for (let x = 0; x < canvasKita.width; x += TRIANGLE_BASE / 2) { 
+    for (let x = 0; x < canvasKita.width; x += TRIANGLE_BASE / 2) {
         ctx.beginPath();
         let randomHeight = TRIANGLE_HEIGHT + (Math.random() * 10 - 5);
-        let currentGrassColor = (Math.floor(x / (TRIANGLE_BASE * 2)) % 2 === 0) ? GRASS_COLOR1 : GRASS_COLOR2;
-            
+        let currentGrassColor = (Math.floor(x / (TRIANGLE_BASE * 2)) % 2 == 0) ? GRASS_COLOR1 : GRASS_COLOR2;
+
         ctx.moveTo(x, startY); 
         ctx.lineTo(x + TRIANGLE_BASE / 2, startY - randomHeight); 
         ctx.lineTo(x + TRIANGLE_BASE, startY);
